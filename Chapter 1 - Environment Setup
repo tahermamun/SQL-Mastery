@@ -1,0 +1,72 @@
+# Environment Setup: Microsoft SQL Server (Beginner Version)
+
+Pick the section for your OS below and just follow it top to bottom. Skip everything else — you don't need it.
+
+---
+
+## Windows
+
+This is the easiest path since SQL Server is built for Windows.
+
+1. **Download SQL Server Express** (free): [https://www.microsoft.com/en-us/sql-server/sql-server-downloads](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) → under "Express" click **Download now**.
+2. Run the installer, choose **Basic**, click through, let it finish. It sets everything up for you automatically — you don't need to touch any settings.
+3. **Download SSMS** (the tool you'll actually write queries in): [https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms). Install it — this one takes a few minutes.
+4. Open SSMS. In the "Connect to Server" box, just click **Connect** — the default settings already point at the server you just installed.
+5. You're in. Click **New Query** at the top and try:
+
+```sql
+SELECT 1;
+```
+
+If it returns a result, you're done.
+
+---
+
+## Mac
+
+SQL Server doesn't run natively on Mac, and Docker is a bit much for a first setup. The easiest real path is to use a **free SQL Server database in the cloud** — no install, no containers, works in a browser and in a lightweight app.
+
+1. Go to [https://azure.microsoft.com/en-us/free/](https://azure.microsoft.com/en-us/free/) and sign up with a free account (needs a card for identity check, but the free database tier doesn't charge you).
+2. In the Azure portal, search **SQL databases** → **Create**. Choose the **Free offer** database tier.
+3. Set a server admin username and password (write these down).
+4. Once it's created (a couple of minutes), open **Query editor** right inside the Azure portal — no install needed at all.
+5. Try:
+
+```sql
+SELECT 1;
+```
+
+If it returns a result, you're done. You can query straight from the browser like this the whole time.
+
+**If you'd rather write queries in a proper app instead of the browser:** install **Azure Data Studio** ([download](https://learn.microsoft.com/en-us/azure-data-studio/download-azure-data-studio)), open it, click **New Connection**, and enter the server name/username/password from step 3.
+
+---
+
+## Linux
+
+Same situation as Mac — SQL Server on Linux natively is finicky to set up as a beginner, so use the free cloud database instead.
+
+1. Go to [https://azure.microsoft.com/en-us/free/](https://azure.microsoft.com/en-us/free/) and sign up for a free account.
+2. In the Azure portal, search **SQL databases** → **Create**. Pick the **Free offer** tier.
+3. Set a server admin username and password (write these down).
+4. Once it's ready, open **Query editor** directly in the Azure portal — nothing to install.
+5. Try:
+
+```sql
+SELECT 1;
+```
+
+If it returns a result, you're done.
+
+**If you'd rather use a desktop app:** install **Azure Data Studio** ([download](https://learn.microsoft.com/en-us/azure-data-studio/download-azure-data-studio)) — it has a native Linux build. Open it, click **New Connection**, and enter the server details from step 3.
+
+---
+
+## Once you're connected (any OS)
+
+Load a practice database so you have real data to query, instead of an empty server.
+
+- In SSMS or Azure Data Studio, right-click **Databases → New Database**, name it `Practice`, and create it.
+- Or, if you want ready-made sample data, search "AdventureWorks sample database" — it's Microsoft's official practice dataset and there are simple one-click restore instructions on their GitHub page.
+
+That's it — you're ready to start writing queries.
