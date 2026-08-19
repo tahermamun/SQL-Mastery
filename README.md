@@ -1,6 +1,11 @@
 
 # 🚩🔴This is still a work in progress, so it’s not finished yet. You’re welcome to start working on it with me, wait until it’s more complete, or share any ideas you think could contribute to the repo.
 
+ <b style='color:red'>Note:</b> I highly recommend, before jumping into this repo, that you first take a 1-hour crash course from a YouTube video. You should have at least a basic understanding of the concepts before getting started.
+
+This is especially important because the repo goes from beginner to advanced level, and potentially even beyond that. Having a basic foundation first will help you understand the concepts much more clearly instead of just following along without knowing what’s happening.
+
+
 # SQL Mastery
 
 A structured journey to mastering SQL through concepts, hands-on
@@ -109,4 +114,3 @@ SQL interview questions and scenario-based problems.
 ## 🚀 Goal
 
 Become confident in SQL and build a strong foundation
-for a career in Data Engineering.

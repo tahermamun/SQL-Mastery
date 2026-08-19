@@ -1,6 +1,6 @@
 # Chapter 2: SQL Fundamentals
 
-This is the first chapter of SQL Mastery. Everything later in this repo — joins, CTEs, subqueries, window functions, database design, data engineering — builds on the concepts here, so it's worth actually understanding this rather than skimming it.
+This is the main chapter of SQL Mastery. Everything later in this repo — joins, CTEs, subqueries, window functions, database design, data engineering — builds on the concepts here, so it's worth actually understanding this rather than skimming it.
 
 ## What you'll be able to do after this chapter
 
@@ -28,7 +28,7 @@ That query is just asking: *give me everything in the customers table.*
 
 ## 2. Databases and tables
 
-A **database** is an organised collection of data. An e-commerce company's database might hold customers, products, orders, payments, and employees — usually each of those as its own **table**.
+A **database** is an organised collection of data. An e-commerce company's database might hold customers, products, orders, payments, and employees - usually each of those as its own **table**.
 
 A table stores data as **rows and columns**. Here's a `customers` table:
 
@@ -59,6 +59,9 @@ WHERE city = 'Bristol'
 ORDER BY first_name;
 ```
 
+
+
+
 Reading this left to right: pick `first_name` and `city`, from `customers`, keep only Bristol rows, sort by first name.
 
 ---
@@ -86,7 +89,7 @@ SELECT first_name, last_name, city
 FROM customers;
 ```
 
-Don't forget the commas — `SELECT first_name last_name city` will error or misbehave depending on the engine.
+Don't forget the commas - `SELECT first_name last_name city` will error or misbehave depending on the engine.
 
 **`SELECT *`** means "every column." It's fine for exploring a table you don't know yet, but in real code prefer naming the columns you actually need:
 
@@ -132,7 +135,7 @@ SELECT DISTINCT city, age
 FROM customers;
 ```
 
-This gives you unique (city, age) pairs — not a unique list of cities and a separate unique list of ages.
+This gives you unique (city, age) pairs - not a unique list of cities and a separate unique list of ages.
 
 ## 6. WHERE and comparison operators
 
@@ -188,7 +191,7 @@ ORDER BY age ASC    -- smallest to largest / A to Z
 ORDER BY age DESC   -- largest to smallest / Z to A
 ```
 
-You can sort by more than one column — the second column only matters for breaking ties in the first:
+You can sort by more than one column - the second column only matters for breaking ties in the first:
 
 ```sql
 SELECT *
@@ -198,9 +201,9 @@ ORDER BY city ASC, age DESC;
 
 This sorts by city alphabetically, and within each city, oldest to youngest.
 
-## 8. LIMIT
+## 8.1 . LIMIT
 
-`LIMIT` caps how many rows come back — useful for exploring large tables, and essential when paired with `ORDER BY`.
+`LIMIT` caps how many rows come back - useful for exploring large tables, and essential when paired with `ORDER BY`.
 
 ```sql
 SELECT *
@@ -208,7 +211,7 @@ FROM customers
 LIMIT 3;
 ```
 
-The combination `ORDER BY ... LIMIT ...` is one of the most common patterns in SQL — it's how you answer "top N" or "bottom N" questions:
+The combination `ORDER BY ... LIMIT ...` is one of the most common patterns in SQL - it's how you answer "top N" or "bottom N" questions:
 
 ```sql
 -- three oldest customers
@@ -224,9 +227,44 @@ ORDER BY age ASC
 LIMIT 3;
 ```
 
+## 8.2. TOP - SQL Server
+
+In **Microsoft SQL Server**, `LIMIT` is not supported. Instead, use `TOP` to control how many rows are returned.
+
+```sql
+SELECT TOP 3 *
+FROM customers;
+```
+
+`TOP` is useful when exploring large tables or when you only need a specific number of rows.
+
+The combination of **`ORDER BY` + `TOP`** is commonly used to answer **"top N"** or **"bottom N"** questions.
+
+```sql
+-- three oldest customers
+SELECT TOP 3 *
+FROM customers
+ORDER BY age DESC;
+
+-- three youngest customers
+SELECT TOP 3 *
+FROM customers
+ORDER BY age ASC;
+```
+
+### Remember
+
+* `TOP 3` → return only 3 rows
+* `ORDER BY age DESC` → oldest first
+* `ORDER BY age ASC` → youngest first
+
+**Note:** Always use `ORDER BY` when you care *which* rows are returned. Without it, SQL Server does not guarantee the order of the results.
+
+
+
 ## 9. Aliases
 
-An alias renames a column (or table) just for the output — it doesn't touch the actual schema.
+An alias renames a column (or table) just for the output - it doesn't touch the actual schema.
 
 ```sql
 SELECT
@@ -240,7 +278,7 @@ FROM customers;
 | John  | Bristol    |
 | Sarah | London     |
 
-`AS` can technically be omitted (`SELECT first_name name`), but keep it in — it makes queries much easier to read at a glance.
+`AS` can technically be omitted (`SELECT first_name name`), but keep it in - it makes queries much easier to read at a glance.
 
 **Table aliases** matter even more once you get to joins:
 
@@ -464,6 +502,7 @@ Assume an `employees` table with: `employee_id, first_name, last_name, departmen
 5. Return employees younger than 30.
 
 **Intermediate**
+
 6. Return all unique departments.
 7. Return employees ordered by salary, highest first.
 8. Return the five highest-paid employees.
