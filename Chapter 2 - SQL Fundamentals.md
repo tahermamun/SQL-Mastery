@@ -1,6 +1,6 @@
 # Chapter 2: SQL Fundamentals
 
-This is the main chapter of SQL Mastery. Everything later in this repo — joins, CTEs, subqueries, window functions, database design, data engineering — builds on the concepts here, so it's worth actually understanding this rather than skimming it.
+This is the main chapter of SQL Mastery. Everything later in this repo - joins, CTEs, subqueries, window functions, database design, data engineering - builds on the concepts here, so it's worth actually understanding this rather than skimming it.
 
 ## What you'll be able to do after this chapter
 
@@ -39,7 +39,7 @@ A table stores data as **rows and columns**. Here's a `customers` table:
 |           3 | David      | Brown     | Manchester |  28 |
 |           4 | Emma       | Wilson    | Bristol    |  24 |
 
-**Columns** describe an attribute (first_name, city, age). **Rows** are individual records — row 1 is John Smith, row 2 is Sarah Khan, and so on. Each column usually has a data type behind it too, e.g. `customer_id` is an `INTEGER`, `first_name` is a `VARCHAR`.
+**Columns** describe an attribute (first_name, city, age). **Rows** are individual records - row 1 is John Smith, row 2 is Sarah Khan, and so on. Each column usually has a data type behind it too, e.g. `customer_id` is an `INTEGER`, `first_name` is a `VARCHAR`.
 
 ## 3. The basic shape of a query
 
@@ -173,7 +173,7 @@ WHERE city <> 'Bristol'  -- not from Bristol
 ```sql
 WHERE city = 'Bristol'   -- correct
 WHERE age = 25            -- correct
-WHERE age = '25'          -- avoid — works in some databases via implicit conversion, but don't rely on it
+WHERE age = '25'          -- avoid - works in some databases via implicit conversion, but don't rely on it
 ```
 
 ## 7. ORDER BY
@@ -306,7 +306,7 @@ FROM customers
 WHERE city = 'Bristol';
 ```
 
-Use these to explain *why* a query exists or why some logic is non-obvious — not to narrate lines that are already self-explanatory.
+Use these to explain *why* a query exists or why some logic is non-obvious - not to narrate lines that are already self-explanatory.
 
 ## 11. A few syntax notes
 
@@ -342,11 +342,11 @@ SELECT → FROM → WHERE → ORDER BY → LIMIT
 It's logically processed roughly as:
 
 ```
-1. FROM      — get the table
-2. WHERE     — filter rows
-3. SELECT    — pick columns
-4. ORDER BY  — sort
-5. LIMIT     — cut down to N rows
+1. FROM      - get the table
+2. WHERE     - filter rows
+3. SELECT    - pick columns
+4. ORDER BY  - sort
+5. LIMIT     - cut down to N rows
 ```
 
 Take this query:
@@ -446,7 +446,7 @@ SELECT * FROM customers ORDER BY age WHERE age > 25;  -- wrong
 SELECT * FROM customers WHERE age > 25 ORDER BY age;   -- right
 ```
 
-**LIMIT before ORDER BY.** If you want the top N by some criterion, you have to sort first, *then* limit — otherwise you're just grabbing an arbitrary 3 rows and sorting those.
+**LIMIT before ORDER BY.** If you want the top N by some criterion, you have to sort first, *then* limit - otherwise you're just grabbing an arbitrary 3 rows and sorting those.
 ```sql
 SELECT * FROM customers LIMIT 3 ORDER BY age DESC;   -- wrong
 SELECT * FROM customers ORDER BY age DESC LIMIT 3;    -- right
@@ -569,8 +569,8 @@ LIMIT 5;
 
 ## Before moving on
 
-You should be able to explain, without notes, what a database/table/row/column is, and use `SELECT`, `DISTINCT`, `WHERE`, `ORDER BY`, `LIMIT`, and aliases confidently — plus recite the logical processing order (`FROM → WHERE → SELECT → ORDER BY → LIMIT`).
+You should be able to explain, without notes, what a database/table/row/column is, and use `SELECT`, `DISTINCT`, `WHERE`, `ORDER BY`, `LIMIT`, and aliases confidently - plus recite the logical processing order (`FROM → WHERE → SELECT → ORDER BY → LIMIT`).
 
 Next chapter: **02 – Filtering and Operators**, covering `AND`, `OR`, `NOT`, `BETWEEN`, `IN`, `LIKE`, `IS NULL` / `IS NOT NULL`, and combining conditions in more realistic filtering problems.
 
-The point of this chapter was never to memorise syntax — it's to start thinking in terms of tables, rows, and filters. That mindset is what carries you through everything after this.
+The point of this chapter was never to memorise syntax - it's to start thinking in terms of tables, rows, and filters. That mindset is what carries you through everything after this.

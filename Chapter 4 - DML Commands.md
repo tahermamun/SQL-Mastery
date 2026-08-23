@@ -1,6 +1,6 @@
 # Chapter 4: DML Commands
 
-Chapter 3 was about building the containers — tables, columns, constraints. This chapter is about putting data into those containers and changing it once it's there: **DML** (Data Manipulation Language). The three commands are `INSERT`, `UPDATE`, and `DELETE`.
+Chapter 3 was about building the containers - tables, columns, constraints. This chapter is about putting data into those containers and changing it once it's there: **DML** (Data Manipulation Language). The three commands are `INSERT`, `UPDATE`, and `DELETE`.
 
 Unlike DDL, these are ordinary transactional statements - they can be wrapped in a transaction and rolled back if something goes wrong, which matters a lot once you're working with real data instead of a personal practice table.
 
@@ -187,7 +187,7 @@ Every customer from Manchester is removed.
 DELETE FROM customers;
 ```
 
-This deletes **every row** in the table. The table itself still exists afterward — this is different from `DROP TABLE`, which was covered in Chapter 3 — but every record is gone. As with `UPDATE`, get in the habit of writing and double-checking `WHERE` before you run a `DELETE`.
+This deletes **every row** in the table. The table itself still exists afterward - this is different from `DROP TABLE`, which was covered in Chapter 3 - but every record is gone. As with `UPDATE`, get in the habit of writing and double-checking `WHERE` before you run a `DELETE`.
 
 ### DELETE vs TRUNCATE, revisited
 
@@ -195,7 +195,7 @@ Chapter 3 covered this from the DDL side; worth repeating from here since it's g
 
 | | `DELETE FROM table WHERE ...` | `TRUNCATE TABLE table` |
 | --- | --- | --- |
-| Can filter specific rows | yes | no — always all rows |
+| Can filter specific rows | yes | no - always all rows |
 | Speed on large tables | slower (logs each row) | faster (minimal logging) |
 | Can be rolled back in a transaction | yes | usually not, or only partially, depending on the database |
 | Resets auto-increment counters | no | usually yes |
@@ -215,7 +215,7 @@ INSERT INTO customers (customer_id, first_name, city)
 VALUES (5, 'Alex', NULL);
 ```
 
-`city` is now unknown for this row — not blank text, `NULL`.
+`city` is now unknown for this row - not blank text, `NULL`.
 
 ### You can't filter NULL with =
 
@@ -224,7 +224,7 @@ SELECT * FROM customers WHERE city = NULL;   -- returns nothing, ever
 SELECT * FROM customers WHERE city IS NULL;  -- correct
 ```
 
-`= NULL` never matches, because `NULL` isn't a value that can equal anything — including another `NULL`. Always use `IS NULL` / `IS NOT NULL`.
+`= NULL` never matches, because `NULL` isn't a value that can equal anything - including another `NULL`. Always use `IS NULL` / `IS NOT NULL`.
 
 ### Setting a value back to NULL with UPDATE
 
@@ -264,7 +264,7 @@ This is the practical answer to "what if I run a bad `UPDATE` or `DELETE`": if y
 ```sql
 BEGIN TRANSACTION;
 
--- sanity check first — see exactly what would be affected
+-- sanity check first - see exactly what would be affected
 SELECT * FROM customers WHERE city = 'Bristol';
 
 -- if that looks right, run the actual change
@@ -297,7 +297,7 @@ INSERT INTO orders (order_id, customer_id, amount)
 VALUES (100, 1, 49.99);
 ```
 
-`order_date` and `status` weren't provided — they fall back to their `DEFAULT` values from Chapter 3 (`CURRENT_DATE` and `'pending'`).
+`order_date` and `status` weren't provided - they fall back to their `DEFAULT` values from Chapter 3 (`CURRENT_DATE` and `'pending'`).
 
 **Mark that order as shipped:**
 
@@ -320,7 +320,7 @@ WHERE customer_id = 3;
 COMMIT;
 ```
 
-Note: if `orders` had a row referencing `customer_id = 3` via the `FOREIGN KEY` from Chapter 3, this `DELETE` would be rejected by the database until that order is dealt with first — the constraint is protecting you from leaving an order pointing at a customer that no longer exists.
+Note: if `orders` had a row referencing `customer_id = 3` via the `FOREIGN KEY` from Chapter 3, this `DELETE` would be rejected by the database until that order is dealt with first - the constraint is protecting you from leaving an order pointing at a customer that no longer exists.
 
 ---
 
@@ -351,10 +351,10 @@ VALUES (1, 'John', 'Smith', 'Bristol', 25);                         -- explicit,
 DELETE FROM customers WHERE customer_id = 1;
 -- fails if orders still has rows referencing customer_id = 1
 ```
-This isn't a bug — it's the constraint from Chapter 3 doing exactly what it's supposed to. Delete or reassign the referencing rows first.
+This isn't a bug - it's the constraint from Chapter 3 doing exactly what it's supposed to. Delete or reassign the referencing rows first.
 
 **Assuming DELETE and TRUNCATE are interchangeable.**
-They usually get you to the same end state (empty table) but behave very differently under the hood — see the comparison table above.
+They usually get you to the same end state (empty table) but behave very differently under the hood - see the comparison table above.
 
 **Committing before checking.**
 Running a broad `UPDATE`/`DELETE` and immediately committing, instead of checking the affected rows first inside a transaction. Once committed, a rollback may no longer be possible.

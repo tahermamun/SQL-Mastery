@@ -1,6 +1,6 @@
 # Chapter 3: DDL Commands
 
-Everything in Chapter 2 was about reading data that already exists. This chapter is about the commands that create and shape the structures that data lives in — tables, columns, constraints. These are the **DDL** (Data Definition Language) commands: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`.
+Everything in Chapter 2 was about reading data that already exists. This chapter is about the commands that create and shape the structures that data lives in - tables, columns, constraints. These are the **DDL** (Data Definition Language) commands: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`.
 
 ## What you'll be able to do after this chapter
 
@@ -23,7 +23,7 @@ SQL commands are usually split into categories. The two you'll use constantly ar
 
 Chapter 2 was entirely DML (well, just `SELECT`). This chapter is DDL - you're building the container before you put anything in it.
 
-One important practical difference: most DDL commands **auto-commit**. In many databases, once you run `CREATE TABLE` or `DROP TABLE`, it's done — there's no rolling it back the way you can undo an `UPDATE` inside a transaction. Keep that in mind, especially with `DROP`.
+One important practical difference: most DDL commands **auto-commit**. In many databases, once you run `CREATE TABLE` or `DROP TABLE`, it's done - there's no rolling it back the way you can undo an `UPDATE` inside a transaction. Keep that in mind, especially with `DROP`.
 
 ---
 
@@ -58,7 +58,7 @@ You'll see these constantly, so it's worth knowing what each is actually for rat
 | `BOOLEAN`       | true/false (some databases use `BIT` instead) | `TRUE` / `FALSE` |
 | `TEXT`          | long, unbounded text                          | a blog post body |
 
-`DECIMAL` vs floating-point types matter more than people expect — use `DECIMAL` for money. Floating-point types can introduce tiny rounding errors that you really don't want in financial data.
+`DECIMAL` vs floating-point types matter more than people expect - use `DECIMAL` for money. Floating-point types can introduce tiny rounding errors that you really don't want in financial data.
 
 ---
 
@@ -81,7 +81,7 @@ Almost every table you build should have one. It's what other tables use to refe
 
 ### NOT NULL
 
-Forces a column to always have a value — you can't leave it empty.
+Forces a column to always have a value - you can't leave it empty.
 
 ```sql
 CREATE TABLE customers (
@@ -132,7 +132,7 @@ CREATE TABLE employees (
 );
 ```
 
-Trying to insert an employee aged 15, or a negative salary, gets rejected by the database itself — before it ever becomes a bug in your application code.
+Trying to insert an employee aged 15, or a negative salary, gets rejected by the database itself - before it ever becomes a bug in your application code.
 
 ### FOREIGN KEY
 
@@ -147,7 +147,7 @@ CREATE TABLE orders (
 );
 ```
 
-This says: every `customer_id` in `orders` must correspond to a real `customer_id` in `customers`. You physically cannot create an order for a customer that doesn't exist. This is the mechanism that makes joins between tables meaningful later on — it's what guarantees the relationship is real, not just a coincidence of matching numbers.
+This says: every `customer_id` in `orders` must correspond to a real `customer_id` in `customers`. You physically cannot create an order for a customer that doesn't exist. This is the mechanism that makes joins between tables meaningful later on - it's what guarantees the relationship is real, not just a coincidence of matching numbers.
 
 ### Putting it together
 
@@ -168,7 +168,7 @@ Every constraint here is doing a specific job: `PRIMARY KEY` gives each order a 
 
 ## 4. ALTER TABLE
 
-Once a table exists, `ALTER TABLE` is how you change its structure — add a column, drop one, change a type, rename something. You don't need to drop and recreate a table just because you forgot a column.
+Once a table exists, `ALTER TABLE` is how you change its structure - add a column, drop one, change a type, rename something. You don't need to drop and recreate a table just because you forgot a column.
 
 ### Add a column
 
@@ -200,7 +200,7 @@ ALTER COLUMN first_name VARCHAR(100);
 -- PostgreSQL: ALTER TABLE customers ALTER COLUMN first_name TYPE VARCHAR(100);
 ```
 
-This is one of the few places where syntax genuinely differs by database — worth double-checking the docs for whichever engine you're on.
+This is one of the few places where syntax genuinely differs by database - worth double-checking the docs for whichever engine you're on.
 
 ### Rename a column
 
@@ -236,21 +236,21 @@ ALTER TABLE customers
 DROP CONSTRAINT chk_age;
 ```
 
-Naming your constraints (`chk_age` here) rather than letting the database auto-generate a name is worth doing — it makes them much easier to find and drop later.
+Naming your constraints (`chk_age` here) rather than letting the database auto-generate a name is worth doing - it makes them much easier to find and drop later.
 
 ---
 
 ## 5. DROP TABLE
 
-Deletes an entire table — structure and data, gone.
+Deletes an entire table - structure and data, gone.
 
 ```sql
 DROP TABLE customers;
 ```
 
-There is no undo. If other tables have a `FOREIGN KEY` pointing at this one, most databases will refuse to drop it until you remove or update those references first — that's the constraint doing its job and protecting you from an inconsistent database.
+There is no undo. If other tables have a `FOREIGN KEY` pointing at this one, most databases will refuse to drop it until you remove or update those references first - that's the constraint doing its job and protecting you from an inconsistent database.
 
-`DROP TABLE IF EXISTS` is worth knowing — it avoids an error if the table's already gone (handy in scripts you re-run):
+`DROP TABLE IF EXISTS` is worth knowing - it avoids an error if the table's already gone (handy in scripts you re-run):
 
 ```sql
 DROP TABLE IF EXISTS customers;
@@ -272,9 +272,9 @@ People mix these up constantly, so it's worth being precise:
 
 | Command    | Removes rows? | Removes structure? | Can filter with WHERE? | Notes |
 | ---------- | :---: | :---: | :---: | --- |
-| `DELETE`   | yes (or a subset) | no | yes | DML, not DDL — logged row by row, slower on big tables, can be rolled back |
-| `TRUNCATE` | yes, all of them | no | no | DDL — much faster, resets auto-increment counters, minimal logging |
-| `DROP`     | yes | **yes** | no | DDL — the table itself ceases to exist |
+| `DELETE`   | yes (or a subset) | no | yes | DML, not DDL - logged row by row, slower on big tables, can be rolled back |
+| `TRUNCATE` | yes, all of them | no | no | DDL - much faster, resets auto-increment counters, minimal logging |
+| `DROP`     | yes | **yes** | no | DDL - the table itself ceases to exist |
 
 If you want to empty a table entirely and don't care about `WHERE`-filtering, `TRUNCATE` is faster than `DELETE`. If you want to remove the table completely, that's `DROP`.
 
@@ -284,7 +284,7 @@ If you want to empty a table entirely and don't care about `WHERE`-filtering, `T
 
 A `SELECT` that goes wrong gives you the wrong answer. A DDL command that goes wrong can destroy something. A few habits worth building early:
 
-- Always double-check which environment you're connected to before running `DROP` or `TRUNCATE` — running it against production instead of your local test database is a classic, career-defining mistake.
+- Always double-check which environment you're connected to before running `DROP` or `TRUNCATE` - running it against production instead of your local test database is a classic, career-defining mistake.
 - Use `IF EXISTS` / `IF NOT EXISTS` in scripts you'll re-run, so they don't error out on a second run.
 - Name your constraints. `chk_age` is far easier to work with later than whatever auto-generated name the database picked.
 - When you're not sure a change is safe, test it on a copy of the table first, not the real one.
@@ -462,8 +462,8 @@ DROP TABLE categories;
 
 ## Before moving on
 
-You should be comfortable creating a table with sensible data types and constraints, altering an existing table without breaking it, and knowing exactly which command to reach for — `DELETE`, `TRUNCATE`, or `DROP` — depending on whether you want to remove some rows, all rows, or the table entirely.
+You should be comfortable creating a table with sensible data types and constraints, altering an existing table without breaking it, and knowing exactly which command to reach for - `DELETE`, `TRUNCATE`, or `DROP` - depending on whether you want to remove some rows, all rows, or the table entirely.
 
 ## Next chapter
 
-**`04-dml-commands`** — `INSERT`, `UPDATE`, and `DELETE`: how you actually get data into the tables you now know how to build, and how to change or remove it safely once it's there.
+**`04-dml-commands`** - `INSERT`, `UPDATE`, and `DELETE`: how you actually get data into the tables you now know how to build, and how to change or remove it safely once it's there.
