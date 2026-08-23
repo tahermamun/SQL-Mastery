@@ -1,6 +1,6 @@
 # Chapter 3: DDL Commands
 
-Everything in Chapter 1 was about reading data that already exists. This chapter is about the commands that create and shape the structures that data lives in — tables, columns, constraints. These are the **DDL** (Data Definition Language) commands: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`.
+Everything in Chapter 2 was about reading data that already exists. This chapter is about the commands that create and shape the structures that data lives in — tables, columns, constraints. These are the **DDL** (Data Definition Language) commands: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`.
 
 ## What you'll be able to do after this chapter
 
@@ -18,10 +18,10 @@ Everything in Chapter 1 was about reading data that already exists. This chapter
 
 SQL commands are usually split into categories. The two you'll use constantly are:
 
-- **DDL (Data Definition Language)** — defines the *structure*: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`
-- **DML (Data Manipulation Language)** — works with the *data inside* that structure: `SELECT`, `INSERT`, `UPDATE`, `DELETE`
+- **DDL (Data Definition Language)** - defines the *structure*: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`
+- **DML (Data Manipulation Language)** - works with the *data inside* that structure: `SELECT`, `INSERT`, `UPDATE`, `DELETE`
 
-Chapter 1 was entirely DML (well, just `SELECT`). This chapter is DDL — you're building the container before you put anything in it.
+Chapter 2 was entirely DML (well, just `SELECT`). This chapter is DDL - you're building the container before you put anything in it.
 
 One important practical difference: most DDL commands **auto-commit**. In many databases, once you run `CREATE TABLE` or `DROP TABLE`, it's done — there's no rolling it back the way you can undo an `UPDATE` inside a transaction. Keep that in mind, especially with `DROP`.
 
@@ -29,7 +29,7 @@ One important practical difference: most DDL commands **auto-commit**. In many d
 
 ## 2. CREATE TABLE
 
-This is how you define a new table — its name, its columns, and each column's data type.
+This is how you define a new table - its name, its columns, and each column's data type.
 
 ```sql
 CREATE TABLE customers (
@@ -41,7 +41,7 @@ CREATE TABLE customers (
 );
 ```
 
-Reading this: create a table called `customers`, with five columns, each given a name and a data type. That's the minimum a `CREATE TABLE` needs — a name and at least one column.
+Reading this: create a table called `customers`, with five columns, each given a name and a data type. That's the minimum a `CREATE TABLE` needs - a name and at least one column.
 
 ### Common data types
 
@@ -406,6 +406,7 @@ DROP TABLE IF EXISTS table_name;
 4. Remove all rows from `inventory` without deleting the table itself.
 
 **Intermediate**
+
 5. Create a `categories` table (`category_id` primary key, `category_name` unique and required).
 6. Add a `category_id` column to `inventory`, and a foreign key linking it to `categories`.
 7. Drop the `stock_quantity` column from `inventory`.
